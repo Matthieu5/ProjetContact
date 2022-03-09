@@ -10,7 +10,7 @@
     <div class="enveloppe">
         <h1>Contacts</h1>
         <div class="formBox">
-            <form action="#" th:action="@{/contact}" th:object="${newContact}" method="POST">
+            <form action="#" th:action="@{/contact/alter}" th:object="${newContact}" method="POST">
                 <label>Prénom :</label>
                 <input type="text" th:field="*{prenomC}" required>
                 <p th:if="${#fields.hasErrors('prenomC')}" th:errors="*{prenomC}">Name Error</p>
@@ -34,7 +34,7 @@
             <tr th:each="mail: ${contact.mails}">
                 <td class="mail" th:text="${mail.libelleM}" /></br>
             </tr>
-            <button><a href="/ContactModif">Modifier</a></button>
+            <form th:action="'/contact/modif/'+${contact.idC}" method="GET"><input type="submit" value="Modifier"></form>
             <form th:action="'/contact/delete/'+${contact.idC}" method="GET"><input type="submit" value="Supprimer"></form>
         </div>
     </div>

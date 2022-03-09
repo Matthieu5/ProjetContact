@@ -10,15 +10,16 @@
 <div class="enveloppe">
     <h1>Modification contact</h1>
     <div class="formBox">
-        <form action="#" th:action="@{/contact}" th:object="${newContact}" method="POST">
+        <form action="#" th:action="@{/contact/alter}" th:object="${newContact}" method="POST">
+            <input type="hidden" th:field="*{idC}" required th:value="*{idC}">
             <label>Prénom :</label>
-            <input type="text" th:field="*{prenomC}" value="test" required>
+            <input type="text" th:field="*{prenomC}" required th:value="*{prenomC}">
             <p th:if="${#fields.hasErrors('prenomC')}" th:errors="*{prenomC}">Name Error</p>
             <label>Nom :</label>
-            <input type="text" th:field="*{nomC}" required>
+            <input type="text" th:field="*{nomC}" required th:value="*{nomC}">
             <p th:if="${#fields.hasErrors('nomC')}" th:errors="*{nomC}">Name Error</p>
             <label>Adresse :</label>
-            <input type="text" th:field="*{adresseC}" required>
+            <input type="text" th:field="*{adresseC}" required th:value="*{adresseC}">
             <p th:if="${#fields.hasErrors('adresseC')}" th:errors="*{adresseC}">Name Error</p>
             <input type="submit" value="Enregistrer">
         </form>

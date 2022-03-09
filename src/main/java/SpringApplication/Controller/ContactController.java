@@ -1,7 +1,9 @@
 package SpringApplication.Controller;
 
 import SpringApplication.data.ContactRepository;
+import SpringApplication.data.MailRepository;
 import SpringApplication.model.Contact;
+import SpringApplication.model.Mail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,8 @@ public class ContactController implements WebMvcConfigurer {
 
     @Autowired
     private ContactRepository contactRepository;
+    @Autowired
+    private MailRepository mailRepository;
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
@@ -25,7 +29,7 @@ public class ContactController implements WebMvcConfigurer {
     }
 
     @GetMapping("/contact")
-    public String showMessage(Model model) {
+    public String listContact(Model model) {
 
         model.addAttribute("contactList", contactRepository.findAll());
         model.addAttribute("newContact", new Contact());
@@ -33,7 +37,16 @@ public class ContactController implements WebMvcConfigurer {
         return "ContactPage";
     }
 
-    @PostMapping("/contact")
+    @GetMapping("/contact/modif/{id}")
+    public String modifContact(Model model, @PathVariable long id) {
+
+        model.addAttribute("contactList", contactRepository.findAll());
+        model.addAttribute("newContact", contactRepository.findById(id).orElse(new Contact()));
+
+        return "ContactModif";
+    }
+
+    @PostMapping("/contact/alter")
     public String postMessage(@Valid @ModelAttribute Contact newContact, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
@@ -43,18 +56,23 @@ public class ContactController implements WebMvcConfigurer {
         }
 
         contactRepository.save(newContact);
-        return "redirect:contact";
-    }
-
-    @GetMapping("/contact/modif/{id}")
-    public String showMessage(@PathVariable long id) {
-        contactRepository.deleteById(id);
         return "redirect:/contact";
     }
 
-    @DeleteMapping("/contact")
-    public String deleteMessage(@ModelAttribute Contact monContact) {
-        //Contact c1 = contactRepository.deleteById(monContact.getIdC());
+
+
+    @GetMapping("/contact/delete/{id}")
+    public String deleteContact(@PathVariable long id) {
+        Optional<Contact> c = contactRepository.findById(id);
+        if(c.get().getMails().size() == 0) {
+            contactRepository.deleteById(id);
+        } else {
+            for (Mail m : c.get().getMails()) {
+                mailRepository.delete(m);
+            }
+            c.get().getMails().clear();
+            contactRepository.deleteById(id);
+        }
 
         return "redirect:contact";
     }

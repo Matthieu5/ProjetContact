@@ -10,10 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Optional;
@@ -58,5 +55,25 @@ public class MailController {
         Mail m1 = (Mail) mailRepository.findAll((Pageable) monMail);
         mailRepository.delete(m1);
         return "redirect:mail";
+    }
+
+    @PostMapping("/mail/alter")
+    public String postMessage(@Valid @ModelAttribute Mail newMail, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("mailList", mailRepository.findAll());
+            model.addAttribute("newMail", newMail);
+            return "MailPage";
+        }
+
+        mailRepository.save(newMail);
+        return "redirect:/mail";
+    }
+
+    @GetMapping("/mail/delete/{id}")
+    public String deleteContact(@PathVariable long id) {
+        mailRepository.deleteById(id);
+
+        return "redirect:/mail";
     }
 }
