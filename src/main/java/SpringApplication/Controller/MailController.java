@@ -32,7 +32,16 @@ public class MailController {
         return "mailPage";
     }
 
-    @PostMapping("/mail")
+    @GetMapping("/mail/modif/{id}")
+    public String modifMail(Model model, @PathVariable long id) {
+
+        model.addAttribute("mailList", mailRepository.findAll());
+        model.addAttribute("newMail", mailRepository.findById(id).orElse(new Mail()));
+
+        return "MailModif";
+    }
+
+    @PostMapping("/mail/alter")
     public String postMessage(@Valid @ModelAttribute MailForm mailForm, BindingResult bindingResult, Model model) {
         Optional<Contact> c = contactRepository.findById(mailForm.getIdContact());
 
@@ -49,29 +58,9 @@ public class MailController {
         return "redirect:/contact";
     }
 
-    @DeleteMapping("/mail")
-    public String deleteMessage(@ModelAttribute Mail monMail) {
-
-        Mail m1 = (Mail) mailRepository.findAll((Pageable) monMail);
-        mailRepository.delete(m1);
-        return "redirect:mail";
-    }
-
-    @PostMapping("/mail/alter")
-    public String postMessage(@Valid @ModelAttribute Mail newMail, BindingResult bindingResult, Model model) {
-
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("mailList", mailRepository.findAll());
-            model.addAttribute("newMail", newMail);
-            return "MailPage";
-        }
-
-        mailRepository.save(newMail);
-        return "redirect:/mail";
-    }
-
     @GetMapping("/mail/delete/{id}")
-    public String deleteContact(@PathVariable long id) {
+    public String deleteMail(@PathVariable long id) {
+        Optional<Mail> m = mailRepository.findById(id);
         mailRepository.deleteById(id);
 
         return "redirect:/mail";

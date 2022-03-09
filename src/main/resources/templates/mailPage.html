@@ -9,7 +9,7 @@
         <div class="enveloppe">
             <h1>Ajout adresse Mail</h1>
             <div class="formBox">
-                <form action="#" th:action="@{/mail}" th:object="${newMail}" method="POST">
+                <form action="#" th:action="@{/mail/alter}" th:object="${newMail}" method="POST">
                     <label>Contact Id:</label>
                     <input type="text" th:field="*{idContact}" required>
                     <label>Libelle :</label>
@@ -22,9 +22,9 @@
             <div class="mailBox" th:each="mail:${mailList}">
                 <!-- <p class="mail" th:text="${mail.idContact}"></p> -->
                 <p class="mail" th:text="${mail.libelleM}"></p>
-                <button action="#" th:action="@{/mail}" th:object="${monMail}" method="UPDATE">Modifier</button>
-                <button action="#" th:action="@{/mail}" th:object="${monMail}" method="DELETE">Supprimer</button>
+                <form th:action="'/mail/delete/'+${mail.idM}" method="GET"><input type="submit" value="Supprimer"></form>
             </div>
         </div>
+        <p style="text-align: center">Page des contact <a href="/contact">ici</a></p>
     </body>
 </html>
