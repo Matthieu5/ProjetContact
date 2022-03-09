@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Accueil</title>
+        <h1>Accueil Gestion Contact</h1>
+        <link rel="stylesheet" href="../static/css/Style.css" th:href="@{/css/Style.css}">
+    </head>
+    <body>
+        <div th:if="${param.error}">
+            <p style="text-align: center">Mauvais identifiants</p>
+        </div>
+        <div th:if="${param.logout}">
+            <p style="text-align: center">Vous êtes bien déconnecté.</p>
+        </div>
+        <p style="text-align: center; margin-top: 15%">Accéder à vos contacts en vous connectant <a th:href="@{/contact}">ici</a></p>
+    </body>
+</html>

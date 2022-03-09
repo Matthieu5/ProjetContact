@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="fr" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Contact</title>
@@ -38,5 +38,10 @@
             <form th:action="'/contact/delete/'+${contact.idC}" method="GET"><input type="submit" value="Supprimer"></form>
         </div>
     </div>
+
+    <p style="text-align: center; margin-top: 10%" th:inline="text">Utilisateur :  [[${#httpServletRequest.remoteUser}]]</p>
+    <form th:action="@{/logout}" method="post">
+        <input style="margin-left: 46.5%; margin-top: 1%" type="submit" value="Se déconnecter"/>
+    </form>
 </body>
 </html>
