@@ -4,6 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Table(name = "CONTACT")
@@ -37,6 +39,9 @@ public class Contact implements Serializable {
         this.adresseC = adresseC;
     }
 
+    @OneToMany(mappedBy = "contact")
+    private Collection<Mail> mails;
+
     public long getIdC() {
         return idC;
     }
@@ -67,5 +72,26 @@ public class Contact implements Serializable {
 
     public void setAdresseC(String adresseC) {
         this.adresseC = adresseC;
+    }
+
+    public Collection<Mail> getMails() {
+        if (mails==null)
+            mails=new ArrayList<>();
+        return mails;
+    }
+
+    public void setMails(Collection<Mail> mails) {
+        this.mails = mails;
+    }
+
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "idC=" + idC +
+                ", nomC='" + nomC + '\'' +
+                ", prenomC='" + prenomC + '\'' +
+                ", adresseC='" + adresseC + '\'' +
+                ", mails=" + mails +
+                '}';
     }
 }

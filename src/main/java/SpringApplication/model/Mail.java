@@ -1,9 +1,6 @@
 package SpringApplication.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -12,16 +9,25 @@ public class Mail {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long idM;
-    @NotNull
-    @Size(min=5, max=100)
+
     private String libelleM;
 
-    public Mail() {
+    public Mail(String libelleM, Contact contact) {
+        this.libelleM = libelleM;
+        this.contact = contact;
     }
 
     public Mail(String libelleM) {
         this.libelleM = libelleM;
     }
+
+    public Mail() {
+
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "contact_fk")
+    private Contact contact;
 
     public long getIdM() {
         return idM;
@@ -37,5 +43,22 @@ public class Mail {
 
     public void setLibelleM(String libelleM) {
         this.libelleM = libelleM;
+    }
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
+
+    @Override
+    public String toString() {
+        return "Mail{" +
+                "idM=" + idM +
+                ", libelleM='" + libelleM + '\'' +
+                ", contact=" + contact +
+                '}';
     }
 }

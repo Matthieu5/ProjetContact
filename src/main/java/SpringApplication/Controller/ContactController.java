@@ -34,15 +34,22 @@ public class ContactController implements WebMvcConfigurer {
     }
 
     @PostMapping("/contact")
-    public String postMessage(@Valid Contact contact, BindingResult bindingResult, @ModelAttribute Contact newContact) {
+    public String postMessage(@Valid @ModelAttribute Contact newContact, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "contact";
+            model.addAttribute("contactList", contactRepository.findAll());
+            model.addAttribute("newContact", newContact);
+            return "ContactPage";
         }
 
-        Contact c1 = new Contact(newContact.getPrenomC(), newContact.getNomC(), newContact.getAdresseC());
-        contactRepository.save(c1);
+        contactRepository.save(newContact);
         return "redirect:contact";
+    }
+
+    @GetMapping("/contact/modif/{id}")
+    public String showMessage(@PathVariable long id) {
+        contactRepository.deleteById(id);
+        return "redirect:/contact";
     }
 
     @DeleteMapping("/contact")

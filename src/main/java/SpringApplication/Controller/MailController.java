@@ -4,6 +4,7 @@ import SpringApplication.data.ContactRepository;
 import SpringApplication.data.MailRepository;
 import SpringApplication.model.Contact;
 import SpringApplication.model.Mail;
+import SpringApplication.model.MailForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -13,35 +14,42 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 public class MailController {
 
     @Autowired
     private MailRepository mailRepository;
+    @Autowired
+    private ContactRepository contactRepository;
 
     @GetMapping("/mail")
     public String showMessage(Model model) {
 
         model.addAttribute("mailList", mailRepository.findAll());
-        model.addAttribute("newMail", new Mail());
+        model.addAttribute("newMail", new MailForm());
 
         return "mailPage";
     }
 
     @PostMapping("/mail")
-    public String postMessage(@Valid Mail mail, BindingResult bindingResult, @ModelAttribute Mail newMail) {
+    public String postMessage(@Valid @ModelAttribute MailForm mailForm, BindingResult bindingResult, Model model) {
+        Optional<Contact> c = contactRepository.findById(mailForm.getIdContact());
 
-        if (bindingResult.hasErrors()) {
-            return "mail";
+        if (bindingResult.hasErrors() || c.isEmpty()) {
+            model.addAttribute("mailList", mailRepository.findAll());
+            model.addAttribute("newMail", mailForm);
+            return "mailPage";
         }
 
-        Mail m1 = new Mail(newMail.getLibelleM());
+
+        Mail m1 = new Mail(mailForm.getLibelleM(), c.get());
+        c.get().getMails().add(m1);
         mailRepository.save(m1);
-        return "redirect:mail";
+        return "redirect:/contact";
     }
 
     @DeleteMapping("/mail")

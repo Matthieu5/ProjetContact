@@ -2,22 +2,25 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="UTF-8">
-        <title>Adresse Mail</title>
+        <title>Ajout adresse Mail</title>
         <link rel="stylesheet" href="../static/css/Style.css" th:href="@{/css/Style.css}">
     </head>
     <body>
         <div class="enveloppe">
-            <h1>Adresse Mail</h1>
+            <h1>Ajout adresse Mail</h1>
             <div class="formBox">
                 <form action="#" th:action="@{/mail}" th:object="${newMail}" method="POST">
+                    <label>Contact Id:</label>
+                    <input type="text" th:field="*{idContact}" required>
                     <label>Libelle :</label>
-                    <input type="text" th:field="*{libelleM}">
+                    <input type="text" th:field="*{libelleM}" required>
                     <p th:if="${#fields.hasErrors('libelleM')}" th:errors="*{libelleM}">Name Error</p>
                     <input type="submit" value="Enregistrer">
                 </form>
             </div>
 
             <div class="mailBox" th:each="mail:${mailList}">
+                <!-- <p class="mail" th:text="${mail.idContact}"></p> -->
                 <p class="mail" th:text="${mail.libelleM}"></p>
                 <button action="#" th:action="@{/mail}" th:object="${monMail}" method="UPDATE">Modifier</button>
                 <button action="#" th:action="@{/mail}" th:object="${monMail}" method="DELETE">Supprimer</button>

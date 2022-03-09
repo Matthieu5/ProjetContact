@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Modification contact</title>
+    <link rel="stylesheet" href="../static/css/Style.css" th:href="@{/css/Style.css}">
+</head>
+<body>
+
+<div class="enveloppe">
+    <h1>Modification contact</h1>
+    <div class="formBox">
+        <form action="#" th:action="@{/contact}" th:object="${newContact}" method="POST">
+            <label>Prénom :</label>
+            <input type="text" th:field="*{prenomC}" value="test" required>
+            <p th:if="${#fields.hasErrors('prenomC')}" th:errors="*{prenomC}">Name Error</p>
+            <label>Nom :</label>
+            <input type="text" th:field="*{nomC}" required>
+            <p th:if="${#fields.hasErrors('nomC')}" th:errors="*{nomC}">Name Error</p>
+            <label>Adresse :</label>
+            <input type="text" th:field="*{adresseC}" required>
+            <p th:if="${#fields.hasErrors('adresseC')}" th:errors="*{adresseC}">Name Error</p>
+            <input type="submit" value="Enregistrer">
+        </form>
+    </div>
+</div>
+</body>
+</html>
