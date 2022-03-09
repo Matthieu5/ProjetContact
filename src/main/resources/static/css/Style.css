@@ -1,0 +1,59 @@
+body
+{
+    background-color: wheat;
+}
+h1
+{
+    text-align: center;
+}
+.prenom
+{
+    font-size: 15px;
+    color: white;
+    padding-left: 5px;
+    text-transform: uppercase;
+}
+.nom
+{
+    font-size: 15px;
+    color: white;
+    padding-left: 5px;
+}
+.adresse
+{
+    font-size: 15px;
+    color: white;
+    padding-left: 5px;
+}
+.mail
+{
+    font-size: 15px;
+    color: white;
+    padding-left: 5px;
+}
+.enveloppe
+{
+    width: 85vw;
+    margin: auto;
+}
+.contactBox
+{
+    background-color: rgb(79, 11, 238);
+    width: 100%;
+}
+.mailBox
+{
+    background-color: rgb(79, 11, 238);
+    width: 100%;
+}
+.formBox
+{
+    display: inline-block;
+    background-color: rgb(233, 230, 224);
+    width: 100%;
+}
+.formBox form
+{
+    width: 60%;
+    margin: 40px auto;
+}
