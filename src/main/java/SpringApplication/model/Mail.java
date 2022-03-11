@@ -1,8 +1,11 @@
 package SpringApplication.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 public class Mail {
@@ -25,6 +28,7 @@ public class Mail {
 
     }
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "contact_fk")
     private Contact contact;
