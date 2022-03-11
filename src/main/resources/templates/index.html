@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <title>Accueil</title>
-        <h1>Accueil Gestion Contact</h1>
-        <link rel="stylesheet" href="../static/css/Style.css" th:href="@{/css/Style.css}">
+        <h1 style="text-align: center">Accueil Gestion Contact</h1>
+        <!-- <link rel="stylesheet" href="../static/css/Style.css" th:href="@{/css/Style.css}"> -->
     </head>
-    <body>
+    <body style="background-color: wheat">
         <div th:if="${param.error}">
             <p style="text-align: center">Mauvais identifiants</p>
         </div>

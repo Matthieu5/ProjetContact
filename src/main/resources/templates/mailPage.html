@@ -3,13 +3,13 @@
     <head>
         <meta charset="UTF-8">
         <title>Ajout adresse Mail</title>
-        <link rel="stylesheet" href="../static/css/Style.css" th:href="@{/css/Style.css}">
+        <!-- <link rel="stylesheet" href="../static/css/Style.css" th:href="@{/css/Style.css}"> -->
     </head>
-    <body>
-        <div class="enveloppe">
-            <h1>Ajout adresse Mail</h1>
-            <div class="formBox">
-                <form action="#" th:action="@{/mail/alter}" th:object="${newMail}" method="POST">
+    <body style="background-color: wheat">
+        <div style="width: 85vw; margin: auto">
+            <h1 style="text-align: center">Ajout adresse Mail</h1>
+            <div style="display: inline-block; background-color: rgb(233, 230, 224); width: 100%">
+                <form style="width: 60%; margin: 40px auto" action="#" th:action="@{/mail/alter}" th:object="${newMail}" method="POST">
                     <label>Contact Id:</label>
                     <input type="text" th:field="*{idContact}" required>
                     <label>Libelle :</label>
@@ -19,7 +19,7 @@
                 </form>
             </div>
 
-            <div class="mailBox" th:each="mail:${mailList}">
+            <div style="background-color: rgb(79, 11, 238); width: 100%" th:each="mail:${mailList}">
                 <!-- <p class="mail" th:text="${mail.idContact}"></p> -->
                 <p class="mail" th:text="${mail.libelleM}"></p>
                 <form th:action="'/mail/delete/'+${mail.idM}" method="GET"><input type="submit" value="Supprimer"></form>

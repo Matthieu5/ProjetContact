@@ -74,6 +74,6 @@ public class ContactController implements WebMvcConfigurer {
             contactRepository.deleteById(id);
         }
 
-        return "redirect:contact";
+        return "redirect:/contact";
     }
 }

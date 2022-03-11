@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Modification contact</title>
-    <link rel="stylesheet" href="../static/css/Style.css" th:href="@{/css/Style.css}">
+    <!-- <link rel="stylesheet" href="../static/css/Style.css" th:href="@{/css/Style.css}"> -->
 </head>
-<body>
+<body style="background-color: wheat">
 
-<div class="enveloppe">
-    <h1>Modification contact</h1>
-    <div class="formBox">
-        <form action="#" th:action="@{/contact/alter}" th:object="${newContact}" method="POST">
+<div style="width: 85vw; margin: auto">
+    <h1 style="text-align: center">Modification contact</h1>
+    <div style="display: inline-block; background-color: rgb(233, 230, 224); width: 100%">
+        <form style="width: 60%; margin: 40px auto" action="#" th:action="@{/contact/alter}" th:object="${newContact}" method="POST">
             <input type="hidden" th:field="*{idC}" required th:value="*{idC}">
             <label>Prénom :</label>
             <input type="text" th:field="*{prenomC}" required th:value="*{prenomC}">
